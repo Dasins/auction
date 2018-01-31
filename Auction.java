@@ -71,35 +71,6 @@ public class Auction
             }
         }
     }
-
-    /**
-     * Return the lot with the given number. Return null
-     * if a lot with this number does not exist.
-     * @param lotNumber The number of the lot to return.
-     */
-    public Lot getLot(int lotNumber)
-    {
-        if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                                   selectedLot.getNumber() +
-                                   " was returned instead of " +
-                                   lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
-            }
-            return selectedLot;
-        }
-        else {
-            System.out.println("Lot number: " + lotNumber +
-                               " does not exist.");
-            return null;
-        }
-    }
     
     /**
      * Imprime los detalles de las subastas con al menos una puja.
@@ -129,5 +100,36 @@ public class Auction
             }
         }
         return unsoldLots;
+    }
+    
+    /**
+     * Return the lot with the given number. Return null
+     * if a lot with this number does not exist.
+     * @param lotNumber The number of the lot to return.
+     */
+    public Lot getLot(int number){
+        Lot finalLot = null;
+        boolean found = false;
+        int i = 0;
+        while (!found && i < lots.size()){
+            Lot actualLot = lots.get(i);
+            if(actualLot.getNumber() == number) {
+                found = true;
+                finalLot = actualLot;
+            }
+        }
+        return finalLot;
+    }
+    
+    /**
+     * Elimina el lote con el numero de
+     * lote especificado.
+     * @param number el numero del lote a borrar.
+     * @return El lote con el numero dado o null si no existe.
+     */
+    public Lot removeLot(int number){
+        Lot finalLot = getLot(number);
+        lots.remove(finalLot);
+        return finalLot;
     }
 }
