@@ -116,4 +116,18 @@ public class Auction
             }
         }
     }
+    
+    /**
+     * @return Devuelve una coleccion con todos los lotes no vendidos.
+     */
+    public ArrayList<Lot> getUnsold() {
+        ArrayList<Lot> unsoldLots = new ArrayList<>();
+        for(Lot lote : lots) {
+            Bid highestBid = lote.getHighestBid();
+            if(highestBid != null) {
+                unsoldLots.add(lote);
+            }
+        }
+        return unsoldLots;
+    }
 }

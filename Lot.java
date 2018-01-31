@@ -91,4 +91,5 @@ public class Lot
     {
         return highestBid;
     }
+    
 }
